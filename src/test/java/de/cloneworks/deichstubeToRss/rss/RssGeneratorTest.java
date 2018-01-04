@@ -7,13 +7,15 @@ import de.cloneworks.deichstubeToRss.parsing.NewsDataItem;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.Calendar;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class RssGeneratorTest {
 
     private static final String EXPECTED_RSS = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
-            "<rss version=\"2.0\">\r\n" +
+            "<rss xmlns:dc=\"http://purl.org/dc/elements/1.1/\" version=\"2.0\">\r\n" +
             "  <channel>\r\n" +
             "    <title>Inoffizieller Deichstube News RSS-Feed</title>\r\n" +
             "    <link>https://www.deichstube.de/news</link>\r\n" +
@@ -27,14 +29,18 @@ public class RssGeneratorTest {
             "      <link>Link to Item 1</link>\r\n" +
             "      <media:content xmlns:media=\"http://search.yahoo.com/mrss/\" medium=\"image\" url=\"Image URL of Item 1\" />\r\n" +
             "      <description>Item 1 Description, which is a bit more lenghty.</description>\r\n" +
-            "      <guid isPermaLink=\"false\">Link to Item 1</guid>\r\n" +
+            "      <pubDate>Sat, 01 Jan 0001 01:01:00 GMT</pubDate>\r\n" +
+            "      <guid isPermaLink=\"false\">Item 1 Title</guid>\r\n" +
+            "      <dc:date>0001-01-01T01:01:00Z</dc:date>\r\n" +
             "    </item>\r\n" +
             "    <item>\r\n" +
             "      <title>Item 2 Title</title>\r\n" +
             "      <link>Link to Item 2</link>\r\n" +
             "      <media:content xmlns:media=\"http://search.yahoo.com/mrss/\" medium=\"image\" url=\"Image URL of Item 2\" />\r\n" +
             "      <description>Item 2 Description.</description>\r\n" +
-            "      <guid isPermaLink=\"false\">Link to Item 2</guid>\r\n" +
+            "      <pubDate>Thu, 02 Feb 0002 02:02:00 GMT</pubDate>\r\n" +
+            "      <guid isPermaLink=\"false\">Item 2 Title</guid>\r\n" +
+            "      <dc:date>0002-02-02T02:02:00Z</dc:date>\r\n" +
             "    </item>\r\n" +
             "  </channel>\r\n" +
             "</rss>\r\n";
@@ -47,12 +53,18 @@ public class RssGeneratorTest {
         item1.imageUrl = "Image URL of Item 1";
         item1.description = "Item 1 Description, which is a bit more lenghty.";
         item1.link = "Link to Item 1";
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(1,0,1,2,1,0);
+        item1.publishTimestamp = cal1.getTime();
 
         NewsDataItem item2 = new NewsDataItem();
         item2.title = "Item 2 Title";
         item2.imageUrl = "Image URL of Item 2";
         item2.description = "Item 2 Description.";
         item2.link = "Link to Item 2";
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(2,1,2,3,2,0);
+        item2.publishTimestamp = cal2.getTime();
 
         DeichstubeNewsIterator iterator = Mockito.mock(DeichstubeNewsIterator.class);
         Mockito.when(iterator.getNumberOfItems()).thenReturn(2);

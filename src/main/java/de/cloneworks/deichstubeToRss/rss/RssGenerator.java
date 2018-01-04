@@ -39,7 +39,8 @@ public class RssGenerator {
             SyndEntryImpl entry = new SyndEntryImpl();
             entry.setTitle(item.title);
             entry.setLink(item.link);
-            entry.setUri(item.link);
+            entry.setUri(item.title);
+            entry.setPublishedDate(item.publishTimestamp);
 
             SyndContentImpl description = new SyndContentImpl();
             description.setValue(item.description);

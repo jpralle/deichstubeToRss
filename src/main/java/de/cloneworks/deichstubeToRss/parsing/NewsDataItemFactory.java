@@ -1,9 +1,18 @@
 package de.cloneworks.deichstubeToRss.parsing;
 
+import de.cloneworks.deichstubeToRss.logging.MyLogger;
 import org.jsoup.nodes.Element;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class NewsDataItemFactory {
 
+    private static final MyLogger LOGGER = new MyLogger(DeichstubeNewsParser.class);
     private static final String TITLE_CSS_SELECTOR = ".id-Teaser-el-content-headline-text";
     private static final String DESCRIPTION_CSS_SELECTOR = ".id-Teaser-el-content-text-text";
     private static final String IMAGE_CSS_SELECTOR = ".id-Teaser-el-image img";
@@ -16,6 +25,7 @@ public class NewsDataItemFactory {
         ret.description = getDescription(newsItemElement);
         ret.imageUrl = getImageUrl(newsItemElement);
         ret.link = getLink(newsItemElement);
+        ret.publishTimestamp = getPublishTimestamp(newsItemElement);
 
         return ret;
     }
@@ -53,6 +63,26 @@ public class NewsDataItemFactory {
             return linkElement.absUrl("href");
         } else {
             return "Link not found";
+        }
+    }
+
+    private static Date getPublishTimestamp(Element newsItemElement) {
+        Element timestampElement = newsItemElement.selectFirst("id-DateTime");
+
+        if(timestampElement != null) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm", Locale.GERMAN);
+
+            String timestampString = timestampElement.attr("datetime");
+
+            try {
+                return format.parse(timestampString);
+            } catch (ParseException e) {
+                LOGGER.info("Error parsing datetime string \"" + timestampString + "\". Returning \"now\". Message: " + e.getMessage(), e);
+                return Calendar.getInstance().getTime();
+            }
+
+        } else {
+            return Calendar.getInstance().getTime();
         }
     }
 }

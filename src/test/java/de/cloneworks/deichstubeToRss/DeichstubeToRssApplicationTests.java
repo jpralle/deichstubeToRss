@@ -49,7 +49,8 @@ public class DeichstubeToRssApplicationTests {
 		String content = result.getResponse().getContentAsString();
 
 		LOGGER.info("Content: \n" + content);
-		assertThat(content, containsString("<rss version=\"2.0\">"));
+		assertThat(content, containsString("<rss "));
+		assertThat(content, containsString(" version=\"2.0\">"));
 		assertThat(content, containsString("<item>"));
 	}
 
