@@ -14,8 +14,9 @@ public class WebDriverFactory {
 	public static WebDriver produceChromeDriver() {
 		WebDriver result = null;
 
-		String absoluitePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver77.0.3865.40/chromedriver_mac64";
-		System.setProperty("webdriver.chrome.driver", absoluitePathToChromeDriver);
+		String osSuffix = getOsSuffix();
+		String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver77.0.3865.40/chromedriver" + osSuffix;
+		System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
 
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
@@ -32,5 +33,20 @@ public class WebDriverFactory {
 			driver.quit();
 		}
 		allProducedDrivers.clear();
+	}
+
+	private static String getOsSuffix() {
+		String result = "_linux64";
+
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			return "win32.exe";
+		} else if (os.contains("mac")) {
+			return "_mac64";
+		} else if (os.contains("nux") || os.contains("nix")) {
+			return "_linux64";
+		}
+
+		return result;
 	}
 }
