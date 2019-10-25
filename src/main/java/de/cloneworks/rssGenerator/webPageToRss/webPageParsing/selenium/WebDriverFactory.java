@@ -1,5 +1,7 @@
 package de.cloneworks.rssGenerator.webPageToRss.webPageParsing.selenium;
 
+import de.cloneworks.rssGenerator.webPageToRss.util.MyLogger;
+import de.cloneworks.rssGenerator.webPageToRss.webPageParsing.RssDataItemFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,6 +11,8 @@ import java.util.List;
 
 public class WebDriverFactory {
 
+	private static final MyLogger LOGGER = new MyLogger(WebDriverFactory.class);
+
 	private static final List<WebDriver> allProducedDrivers = new ArrayList<>();
 
 	public static WebDriver produceChromeDriver() {
@@ -16,6 +20,7 @@ public class WebDriverFactory {
 
 		String osSuffix = getOsSuffix();
 		String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver77.0.3865.40/chromedriver" + osSuffix;
+		LOGGER.info("Using chromedriver at \"" + absolutePathToChromeDriver + "\".");
 		System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
 
 		ChromeOptions options = new ChromeOptions();
