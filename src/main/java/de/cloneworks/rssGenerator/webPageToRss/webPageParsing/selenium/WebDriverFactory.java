@@ -44,6 +44,7 @@ public class WebDriverFactory {
 		String result = "_linux64";
 
 		String os = System.getProperty("os.name").toLowerCase();
+		LOGGER.info("Detected OS name: " + os);
 		if (os.contains("win")) {
 			return "win32.exe";
 		} else if (os.contains("mac")) {
