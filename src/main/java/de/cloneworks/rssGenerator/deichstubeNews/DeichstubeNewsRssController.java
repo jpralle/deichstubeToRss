@@ -3,6 +3,7 @@ package de.cloneworks.rssGenerator.deichstubeNews;
 import de.cloneworks.rssGenerator.webPageToRss.AbstractRssController;
 import de.cloneworks.rssGenerator.webPageToRss.RssDataConfiguration;
 import de.cloneworks.rssGenerator.webPageToRss.util.MyLogger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

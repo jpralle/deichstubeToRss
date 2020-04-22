@@ -2,16 +2,20 @@ package de.cloneworks.rssGenerator.webPageToRss.webPageParsing.selenium;
 
 import de.cloneworks.rssGenerator.webPageToRss.util.MyLogger;
 import de.cloneworks.rssGenerator.webPageToRss.webPageParsing.RssDataItemFactory;
+import org.jsoup.internal.StringUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class WebDriverFactory {
-
 	private static final MyLogger LOGGER = new MyLogger(WebDriverFactory.class);
+
+	public static Optional<String> chromeBinaryPath = Optional.empty();
 
 	private static final List<WebDriver> allProducedDrivers = new ArrayList<>();
 
@@ -25,6 +29,11 @@ public class WebDriverFactory {
 
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--headless");
+
+		if(chromeBinaryPath.isPresent()) {
+			LOGGER.info("Using Chrome binary at \"" + chromeBinaryPath.get() + "\".");
+			options.setBinary(chromeBinaryPath.get());
+		}
 
 		result = new ChromeDriver(options);
 

@@ -29,7 +29,7 @@ public class RssDataConfiguration {
 					"div.row.mod_kalender_element",
 					"div.mod_kalender_title_txt h2",
 					"div.EventKurzinfo",
-					"div.coverImage-sizer",
+					"div.coverImage-sizer img",
 					"div.row a",
 					"<none>",
 				    "/substageconcertsrss");
