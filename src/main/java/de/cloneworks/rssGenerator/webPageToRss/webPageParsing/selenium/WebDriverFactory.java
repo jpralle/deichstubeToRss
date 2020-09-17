@@ -27,7 +27,7 @@ public class WebDriverFactory {
 		} else {
 
 			String osSuffix = getOsSuffix();
-			String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver_81.0.4044.69/chromedriver" + osSuffix;
+			String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver_85.0.4183.87/chromedriver" + osSuffix;
 			LOGGER.info("Using chromedriver at \"" + absolutePathToChromeDriver + "\".");
 			System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
 
