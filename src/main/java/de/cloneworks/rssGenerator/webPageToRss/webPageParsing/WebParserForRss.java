@@ -1,6 +1,5 @@
 package de.cloneworks.rssGenerator.webPageToRss.webPageParsing;
 
-import com.google.common.base.Predicate;
 import de.cloneworks.rssGenerator.webPageToRss.RssDataConfiguration;
 import de.cloneworks.rssGenerator.webPageToRss.util.InvalidParameterException;
 import de.cloneworks.rssGenerator.webPageToRss.util.MyLogger;
@@ -12,7 +11,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +40,10 @@ public class WebParserForRss implements Iterable<RssDataItem> {
     public WebParserForRss(File htmlFile, RssDataConfiguration config) throws InvalidParameterException {
         this.config = config;
         doc = createDocumentWithoutJavaScriptSupportFrom(htmlFile, config.getPageUrl());
+    }
+
+    public void destroy() {
+        WebDriverFactory.destroyAllDrivers();
     }
 
     private WebDocument createDocumentWithoutJavaScriptSupportFrom(String siteUrl) throws InvalidParameterException {

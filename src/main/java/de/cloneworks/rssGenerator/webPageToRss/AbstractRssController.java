@@ -17,7 +17,6 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
@@ -55,9 +54,11 @@ abstract public class AbstractRssController {
 			return lastRssMap.get(config.getLocalBaseUrl());
 		}
 
+		WebParserForRss parser = null;
+
 		try {
 
-			WebParserForRss parser = new WebParserForRss(config);
+			parser = new WebParserForRss(config);
 			parser.setBaseUrl(request.getLocalAddr() + config.getLocalBaseUrl());
 			StringBuilder sb = new StringBuilder(parser.getNumberOfItems() + " items haven been found: \n");
 

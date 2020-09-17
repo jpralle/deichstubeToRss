@@ -22,22 +22,30 @@ public class WebDriverFactory {
 	public static WebDriver produceChromeDriver() {
 		WebDriver result = null;
 
-		String osSuffix = getOsSuffix();
-		String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver_81.0.4044.69/chromedriver" + osSuffix;
-		LOGGER.info("Using chromedriver at \"" + absolutePathToChromeDriver + "\".");
-		System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
+		if(allProducedDrivers.size() > 0) {
+			result = allProducedDrivers.get(0);
+		} else {
 
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless");
+			String osSuffix = getOsSuffix();
+			String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver_81.0.4044.69/chromedriver" + osSuffix;
+			LOGGER.info("Using chromedriver at \"" + absolutePathToChromeDriver + "\".");
+			System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
 
-		if(chromeBinaryPath.isPresent()) {
-			LOGGER.info("Using Chrome binary at \"" + chromeBinaryPath.get() + "\".");
-			options.setBinary(chromeBinaryPath.get());
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless");
+
+			if (chromeBinaryPath.isPresent()) {
+				LOGGER.info("Using Chrome binary at \"" + chromeBinaryPath.get() + "\".");
+				options.setBinary(chromeBinaryPath.get());
+			} else {
+				LOGGER.info("No Chrome binary path given, using default Chrome instance");
+			}
+
+			result = new ChromeDriver(options);
+
+			allProducedDrivers.add(result);
 		}
 
-		result = new ChromeDriver(options);
-
-		allProducedDrivers.add(result);
 		return result;
 	}
 
