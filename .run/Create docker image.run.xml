@@ -8,6 +8,8 @@
         <option name="sourceFilePath" value="docker/Dockerfile" />
       </settings>
     </deployment>
-    <method v="2" />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Package JAR" run_configuration_type="MavenRunConfiguration" />
+    </method>
   </configuration>
 </component>
