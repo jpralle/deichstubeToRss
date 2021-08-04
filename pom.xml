@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>deichstubeToRss</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Creates RSS feeds from certain websites. See index.html.</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
