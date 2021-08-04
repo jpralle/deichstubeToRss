@@ -2,7 +2,7 @@
 FROM markhobson/maven-chrome:latest
 
 # Add and run as non-privileged
-RUN addgroup -S spring && adduser -S spring -G spring
+RUN groupadd spring && useradd -g spring spring
 USER spring:spring
 
 # Add JAR
