@@ -17,11 +17,7 @@ public class RssGeneratorApplication implements ApplicationRunner {
 	private static final MyLogger LOGGER = new MyLogger(RssGeneratorApplication.class);
 
 	public static void main(String[] args) {
-		StringBuilder argsOutput = new StringBuilder("args: ");
-		for (String arg : args) {
-			argsOutput.append(arg + "; ");
-		}
-		LOGGER.info(argsOutput.toString());
+		logArgs(args);
 
 		SpringApplication.run(RssGeneratorApplication.class, args);
 		WebDriverFactory.destroyAllDrivers();
@@ -41,6 +37,14 @@ public class RssGeneratorApplication implements ApplicationRunner {
 			}
 
 		}
+	}
+
+	private static void logArgs(String[] args) {
+		StringBuilder argsOutput = new StringBuilder("args: ");
+		for (String arg : args) {
+			argsOutput.append(arg + "; ");
+		}
+		LOGGER.info(argsOutput.toString());
 	}
 
 }

@@ -6,7 +6,7 @@ USER spring:spring
 
 EXPOSE 8080
 
-ARG JAR_FILE=../target/*.jar
+ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar", "--Dchrome.binary.path==/usr/bin/chromedriver"]
+ENTRYPOINT ["java","-jar","/app.jar", "--chrome.binary.path=/usr/bin/chromedriver"]
