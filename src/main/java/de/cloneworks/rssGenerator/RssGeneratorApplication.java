@@ -17,10 +17,12 @@ public class RssGeneratorApplication implements ApplicationRunner {
 	private static final MyLogger LOGGER = new MyLogger(RssGeneratorApplication.class);
 
 	public static void main(String[] args) {
-		System.out.println("args:");
+		StringBuilder argsOutput = new StringBuilder("args: ");
 		for (String arg : args) {
-			System.out.println(arg);
+			argsOutput.append(arg + "; ");
 		}
+		LOGGER.info(argsOutput.toString());
+
 		SpringApplication.run(RssGeneratorApplication.class, args);
 		WebDriverFactory.destroyAllDrivers();
 	}
