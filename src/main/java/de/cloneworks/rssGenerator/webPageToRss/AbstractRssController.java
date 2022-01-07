@@ -40,6 +40,7 @@ abstract public class AbstractRssController {
 			return innerRssFor(request, config);
 
 		} catch (Throwable t) {
+			LOGGER.warn("Error occured while generating RSS feed: " + t.getMessage(), t);
 			if(sendMail) {
 				sendMail(t);
 			}
@@ -108,12 +109,12 @@ abstract public class AbstractRssController {
 
 	private void sendMail(Throwable t) {
 
-		String smtpServer = "smtp.example.com";
+		String smtpServer = "vXXXXXX.kasserver.com";
 
 		Properties systemProperties = System.getProperties();
-		systemProperties.put("mail.smtp.host", smtpServer); //optional, defined in SMTPTransport
+		systemProperties.put("mail.smtp.host", smtpServer);
 		systemProperties.put("mail.smtp.auth", "true");
-		systemProperties.put("mail.smtp.port", "25"); // default port 25
+		systemProperties.put("mail.smtp.port", "25");
 
 		Session session = Session.getInstance(systemProperties, null);
 		Message msg = new MimeMessage(session);
@@ -126,7 +127,7 @@ abstract public class AbstractRssController {
 			msg.setSentDate(new Date());
 
 			SMTPTransport transport = (SMTPTransport) session.getTransport("smtp");
-			transport.connect(smtpServer, "user", "password");
+			transport.connect(smtpServer, "deichstubeToRss@cloneworks.de", "password");
 			transport.sendMessage(msg, msg.getAllRecipients());
 
 			LOGGER.warn("Response from sending error mail: " + transport.getLastServerResponse());
@@ -134,7 +135,7 @@ abstract public class AbstractRssController {
 			transport.close();
 
 		} catch (MessagingException e) {
-			LOGGER.warn("Error while sending error mail: " + e.getMessage(), e);
+			LOGGER.warn("Initial error see above. But also an error while sending error mail: " + e.getMessage(), e);
 		}
 
 	}

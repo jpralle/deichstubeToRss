@@ -28,7 +28,7 @@ public class RssGeneratorApplication implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		if (args != null && args.getOptionValues("chrome.binary.path") != null) {
 
-			// To use this ferature, start with:
+			// To use this feature, start with:
 			// mvn spring-boot:run -Dspring-boot.run.arguments=--chrome.binary.path=testmepath
 			String chromeBinaryPath = args.getOptionValues("chrome.binary.path").get(0);
 
