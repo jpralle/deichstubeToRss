@@ -1,12 +1,12 @@
-# https://github.com/markhobson/docker-maven-chrome/blob/master/jdk-16/Dockerfile
-FROM markhobson/maven-chrome:latest
+FROM markhobson/maven-chrome:jdk-16
 
-# Add and run as non-privileged
-RUN groupadd spring && useradd -g spring spring
+#run as non-priviliged user
+RUN groupadd --system spring && useradd --system -g spring spring
 USER spring:spring
 
-# Add JAR
+EXPOSE 8080
+
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar", "--Dchrome.binary.path==/usr/bin/chromedriver"]
