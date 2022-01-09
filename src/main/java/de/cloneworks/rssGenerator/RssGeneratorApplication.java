@@ -24,18 +24,34 @@ public class RssGeneratorApplication implements ApplicationRunner {
 	}
 
 	public void run(ApplicationArguments args) throws Exception {
-		if (args != null && args.getOptionValues("chrome.binary.path") != null) {
 
-			// To use this feature, start with:
-			// mvn spring-boot:run -Dspring-boot.run.arguments=--chrome.binary.path=testmepath
-			String chromeBinaryPath = args.getOptionValues("chrome.binary.path").get(0);
+		if (args != null) {
 
-			if (!chromeBinaryPath.equalsIgnoreCase("none")) {
-				WebDriverFactory.chromeBinaryPath = Optional.of(chromeBinaryPath);
-			} else {
-				WebDriverFactory.chromeBinaryPath = Optional.empty();
+			if(args.containsOption("chrome.binary.path")) {
+
+				// To use this feature, start with:
+				// mvn spring-boot:run -Dspring-boot.run.arguments=--chrome.binary.path=/path/to/chrome/binary
+				String chromeBinaryPath = args.getOptionValues("chrome.binary.path").get(0);
+
+				if (!chromeBinaryPath.equalsIgnoreCase("none")) {
+					WebDriverFactory.chromeBinaryPath = Optional.of(chromeBinaryPath);
+				} else {
+					WebDriverFactory.chromeBinaryPath = Optional.empty();
+				}
 			}
 
+			if(args.containsOption("chromeDriver.path")) {
+
+				// To use this feature, start with:
+				// mvn spring-boot:run -Dspring-boot.run.arguments=--chromeDriver.path=/path/to/chromeDriverBinary
+				String chromeDriverPath = args.getOptionValues("chromeDriver.path").get(0);
+
+				if (!chromeDriverPath.equalsIgnoreCase("none")) {
+					WebDriverFactory.chromeDriverPath = Optional.of(chromeDriverPath);
+				} else {
+					WebDriverFactory.chromeDriverPath = Optional.empty();
+				}
+			}
 		}
 	}
 

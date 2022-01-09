@@ -16,6 +16,7 @@ public class WebDriverFactory {
 	private static final MyLogger LOGGER = new MyLogger(WebDriverFactory.class);
 
 	public static Optional<String> chromeBinaryPath = Optional.empty();
+	public static Optional<String> chromeDriverPath = Optional.empty();
 
 	private static final List<WebDriver> allProducedDrivers = new ArrayList<>();
 
@@ -26,10 +27,18 @@ public class WebDriverFactory {
 			result = allProducedDrivers.get(0);
 		} else {
 
-			String osSuffix = getOsSuffix();
-			String absolutePathToChromeDriver = System.getProperty("user.dir") + "/chromedriver_85.0.4183.87/chromedriver" + osSuffix;
-			LOGGER.info("Using chromedriver at \"" + absolutePathToChromeDriver + "\".");
-			System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
+			if (chromeDriverPath.isPresent()) {
+				LOGGER.info("Using chromedriver at \"" + chromeDriverPath.get() + "\".");
+				System.setProperty("webdriver.chrome.driver", chromeDriverPath.get());
+
+			} else {
+				String osSuffix = getOsSuffix();
+				String absolutePathToChromeDriver =
+					System.getProperty("user.dir") + "/chromedriver_85.0.4183.87/chromedriver"
+						+ osSuffix;
+				LOGGER.info("Using default chromedriver at \"" + absolutePathToChromeDriver + "\".");
+				System.setProperty("webdriver.chrome.driver", absolutePathToChromeDriver);
+			}
 
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--headless");
