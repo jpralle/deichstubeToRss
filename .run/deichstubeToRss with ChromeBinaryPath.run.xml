@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="deichstubeToRss with ChromeBinaryPath" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="deichstubeToRss with all path" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -28,7 +28,7 @@
           <option name="goals">
             <list>
               <option value="spring-boot:run" />
-              <option value="-Dspring-boot.run.arguments=--chrome.binary.path=testmepath" />
+              <option value="-Dspring-boot.run.arguments=--chrome.binary.path=testmepath,--chromeDriver.path=/path/to/chromeDriverBinary" />
             </list>
           </option>
           <option name="pomFileName" />

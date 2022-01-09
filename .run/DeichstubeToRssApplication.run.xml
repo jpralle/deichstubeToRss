@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DeichstubeToRssApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="deichstubeToRss" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="de.cloneworks.rssGenerator.RssGeneratorApplication" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <additionalParameters>
+      <param>
+        <option name="name" value="spring-boot.run.arguments" />
+        <option name="value" value="--chrome.binary.path=testmepath3" />
+      </param>
+    </additionalParameters>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
